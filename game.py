@@ -3,7 +3,6 @@ import string
 from ast import literal_eval
 from random import randint,random
 import time
-import asyncio
 import requests
 import shutil
 import os
@@ -149,7 +148,7 @@ def side_bar():
         game_on_display()
         start_game_button()
         reset_game_button()
-
+     
         
 
 def start_game_button(pos=st,**kwargs):
@@ -186,14 +185,9 @@ def get_random_key():
 
 
 def create_button(col,label,session_key,tracked=True,**kwargs):
-    if tracked:
-        disabled=st.session_state[session_key]
-    else:
-        disabled=False
-
-    if not disabled:
-
-        return  col.button(label,on_click=button_click,args=session_key,disabled=disabled,**get_random_key(),**kwargs)
+    initialize_buttons(session_key)
+    disabled=st.session_state[session_key]
+    return  col.button(label,on_click=button_click,args=session_key,disabled=disabled,**get_random_key(),**kwargs)
 
 @game_on_only
 def alphabet_buttons():
@@ -206,7 +200,6 @@ def alphabet_buttons():
                 break
                 
             letter=letters[letter_index]
-            initialize_buttons(letter)
             create_button(col,letter,letter)
 
 def theme_seted_only(func):
@@ -288,18 +281,27 @@ def hint():
 def game_draw():
     st.markdown("<h1><center>It a draw, let's  double the bet on next round!</center></h1>",True)
 
+def help_button(**kwargs):
+    st.sidebar.button('Help',on_click=game_rules)
+
+
+def game_rules():
+    st.sidebar.write("One should say a word related to the theme with the alphab    et letters that are avaible as fast as possible since the time is tiking. If the time is up when someone's turn, this person will lose. Everytime there is a time in the range seted is sorted randomly.")
+
+
 
 
 def main():
     
     side_bar()
-    lasting_letters()
     theme_components()
     display_random_theme()
     start_game_display()
     set_timer_range()
     timer_components() 
-    alphabet_buttons()   
+    alphabet_buttons()
+    help_button()   
+    lasting_letters()
 
 
 main()
