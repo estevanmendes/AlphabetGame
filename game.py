@@ -6,6 +6,8 @@ import time
 import requests
 import shutil
 import os
+from PIL import Image
+
 
 def button_click(button_key:str):
     if button_key in st.session_state:
@@ -281,6 +283,7 @@ def hint():
 def game_draw():
     st.markdown("<h1><center>It a draw, let's  double the bet on next round!</center></h1>",True)
 
+@game_off_only
 def help_button(**kwargs):
     st.sidebar.button('Help',on_click=game_rules)
 
@@ -288,7 +291,44 @@ def help_button(**kwargs):
 def game_rules():
     st.sidebar.write("One should say a word related to the theme with the alphab    et letters that are avaible as fast as possible since the time is tiking. If the time is up when someone's turn, this person will lose. Everytime there is a time in the range seted is sorted randomly.")
 
+@game_off_only
+def language_options():
+    options={'BR':'brasil.png','US':'usa.png'}
+    
+    if not 'language' in st.session_state:
+        set_language('US')
 
+    if st.session_state['language']=='US':
+        st.write('Languages')
+    elif st.session_state['language']=='BR':
+        st.write('Idiomas')
+
+    cols=st.columns(len(options))
+    for col,(country,path) in zip(cols,options.items()):
+        col.image(path,width=100)
+        col.button(country,on_click=set_language,args=(country,))
+
+
+def language_title():
+    # match st.session_state['language']:
+    #     case 'US':
+    #          st.write('Languages')
+    #     case 'BR':
+    #             st.write('Idiomas')
+    language=st.session_state['language']
+    if language=='US':
+             st.write('Languages')
+    elif language=='BR':
+                st.write('Idiomas')
+
+
+def set_language(code):
+    st.session_state['language']=code
+
+def lower_side_bar():
+    with st.sidebar:
+        help_button()   
+        language_options()
 
 
 def main():
@@ -300,8 +340,8 @@ def main():
     set_timer_range()
     timer_components() 
     alphabet_buttons()
-    help_button()   
     lasting_letters()
+    lower_side_bar()
 
 
 main()
