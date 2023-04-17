@@ -61,7 +61,7 @@ def load_random_theme():
         theme=response.json()['word']
     else:
         print("Error:", response.status_code, response.text)
-
+        theme='Not Found'
     return theme
 
 def get_random_theme(themes):
