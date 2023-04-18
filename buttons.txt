@@ -1,0 +1,12 @@
+{'BR':{'help':'Ajuda',
+    'start':'Começar o Jogo',
+    'reset':'Recomeçar',
+    'themeWord':'Gerar Palavra Tema',
+    'themeImage':'Gerar Imagem Tema',
+    'timer':'Tempo'},
+ 'US':{'help':'Help',
+    'start':'Start Game',
+    'reset':'Reset Game',
+    'themeWord':'Get Word Theme',
+    'themeImage':'Get Image Theme',
+    'timer':'Time'}}

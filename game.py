@@ -6,8 +6,7 @@ import time
 import requests
 import shutil
 import os
-from PIL import Image
-
+from translations import translations
 
 def button_click(button_key:str):
     if button_key in st.session_state:
@@ -18,7 +17,8 @@ def button_click(button_key:str):
             GameOver()
             
 def GameOver():
-    st.markdown('# You lost the game    ! There was not enough time')
+    gameover_message=translation.get_title('gameover')
+    st.markdown(f'# {gameover_message}')
 
 
 def initialize_buttons(button_key):
@@ -65,14 +65,13 @@ def load_random_theme():
     return theme
 
 def get_random_theme(themes):
-    # themes_size=len(themes)
-    # theme= themes[randint(0,themes_size-1)]
     theme=load_random_theme()
     st.session_state['theme']=theme
 
     return theme
 
 def display_random_theme(theme=None):
+    theme_word=translation.get_title('theme_word')
     if not theme:
         if 'theme' in st.session_state:
             
@@ -81,13 +80,14 @@ def display_random_theme(theme=None):
             if theme=='img':
                 display_image_theme()
             else:
-                st.markdown(f'<h1> <center>Theme: {theme}</center></h1>',unsafe_allow_html=True)
+                st.markdown(f'<h1> <center>{theme_word}: {theme}</center></h1>',unsafe_allow_html=True)
                 
     elif theme:
             if theme=='img':
                 display_image_theme()
             else:
-                st.markdown(f'<h1> <center> Theme: {theme}</center></h1>',unsafe_allow_html=True)
+
+                st.markdown(f'<h1> <center> {theme_word}: {theme}</center></h1>',unsafe_allow_html=True)
 
  
 async def stopwatch():
@@ -120,13 +120,15 @@ def start_game():
         st.session_state['end_game']=time.time()+st.session_state['timer']
         st.session_state['game_on']=True
     else:
-        st.markdown('# Pick a theme before starting the game')
+        theme_warning=translation.get_title('themeWarning')
+        st.markdown(f'# {theme_warning}')
 
 
 def game_on_display():
     if 'end_game' in st.session_state:
         with st.sidebar:
-            st.markdown('# Game On!')
+            gameon_message=translation.get_title('gameon')
+            st.markdown(f'# {gameon_message}')
             st.markdown('## TikTak, TikTak, Tiktak...')
 
 
@@ -155,11 +157,12 @@ def side_bar():
 
 def start_game_button(pos=st,**kwargs):
     initialize_buttons('start')
-    pos.button('Start Game',on_click=start_game,disabled=st.session_state['start'],**kwargs)
-    # create_button(st,'Start Game','start')
+    button_name=translation.get_button_name('start')
+    pos.button(button_name,on_click=start_game,disabled=st.session_state['start'],**kwargs)
 
 def reset_game_button(pos=st,**kwargs):
-    pos.button('Reset Game',on_click=clear_cache,**kwargs)
+    button_name=translation.get_button_name('reset')
+    pos.button(button_name,on_click=clear_cache,**kwargs)
 
 def reset_actions():
     clear_cache()
@@ -186,9 +189,11 @@ def get_random_key():
     return {'key':None}
 
 
-def create_button(col,label,session_key,tracked=True,**kwargs):
+def create_button(col,label,session_key,tracked=True,translate=False,**kwargs):
     initialize_buttons(session_key)
     disabled=st.session_state[session_key]
+    if translate:
+        label=translation.button_names(session_key)
     return  col.button(label,on_click=button_click,args=session_key,disabled=disabled,**get_random_key(),**kwargs)
 
 @game_on_only
@@ -220,8 +225,10 @@ def start_game_display():
 @game_off_only
 def timer_components():
     with st.sidebar:
-        st.markdown('Set the game time')
-        timer=st.slider('Time',min_value=1.0,max_value=4.0,value=(1.5,3.0),step=0.1,on_change=set_timer_range)
+        timer_message=translation.get_title('timer')
+        st.markdown(f'{timer_message}')
+        timer_button_name=translation.get_button_name('timer')
+        timer=st.slider(timer_button_name,min_value=0.5,max_value=4.0,value=(1.5,3.0),step=0.1,on_change=set_timer_range)
         st.session_state['time_limits']=timer
         cols=st.columns(5)
         timer_button_visibility='visible'
@@ -233,10 +240,11 @@ def timer_components():
 @game_off_only
 def theme_components():
     cols=st.columns(5)
-    cols[1].button('Get Word Theme',on_click=get_random_theme,kwargs={'themes':load_themes()})
-    cols[3].button('Get Image Theme',on_click=load_img_theme)
+    word_button_name=translation.get_button_name('themeWord')
+    image_button_name=translation.get_button_name('themeImage')
+    cols[1].button(word_button_name,on_click=get_random_theme,kwargs={'themes':load_themes()})
+    cols[3].button(image_button_name,on_click=load_img_theme)
 
-letters=list(string.ascii_uppercase.replace('Y','').replace('W','').replace('K',''))
 
 def load_img_theme():
 
@@ -274,34 +282,33 @@ def lasting_letters():
         game_draw()
         reset_game_button(pos=centralize(5),key='anotherReset')
     else:    
-        st.markdown(f'<h1><center>{letters_avaible} letters avaible, Lets go!</center></h1>',True)
+        letters_avaible_message=translation.get_title('letters')
+        st.markdown(f'<h1><center>{letters_avaible} {letters_avaible_message}!</center></h1>',True)
 
 def hint():
     pass
 
 
 def game_draw():
-    st.markdown("<h1><center>It a draw, let's  double the bet on next round!</center></h1>",True)
+    draw_message=translation.get_title('draw')
+    st.markdown(f"<h1><center>{draw_message}</center></h1>",True)
 
 @game_off_only
 def help_button(**kwargs):
-    st.sidebar.button('Help',on_click=game_rules)
+    help_button_name=translation.get_button_name('help')
+    st.sidebar.button(f'{help_button_name}',on_click=game_rules)
 
 
 def game_rules():
-    st.sidebar.write("One should say a word related to the theme with the alphab    et letters that are avaible as fast as possible since the time is tiking. If the time is up when someone's turn, this person will lose. Everytime there is a time in the range seted is sorted randomly.")
+    rules=translation.get_text('rules')
+    st.sidebar.write(f'{rules}')
 
 @game_off_only
 def language_options():
     options={'BR':'brasil.png','US':'usa.png'}
     
-    if not 'language' in st.session_state:
-        set_language('US')
 
-    if st.session_state['language']=='US':
-        st.write('Languages')
-    elif st.session_state['language']=='BR':
-        st.write('Idiomas')
+    language_title()
 
     cols=st.columns(len(options))
     for col,(country,path) in zip(cols,options.items()):
@@ -310,20 +317,12 @@ def language_options():
 
 
 def language_title():
-    # match st.session_state['language']:
-    #     case 'US':
-    #          st.write('Languages')
-    #     case 'BR':
-    #             st.write('Idiomas')
-    language=st.session_state['language']
-    if language=='US':
-             st.write('Languages')
-    elif language=='BR':
-                st.write('Idiomas')
+    language_message=translation.get_title('language')
+    st.write(language_message)
 
 
 def set_language(code):
-    st.session_state['language']=code
+    st.session_state['language_code']=code
 
 def lower_side_bar():
     with st.sidebar:
@@ -332,7 +331,9 @@ def lower_side_bar():
 
 
 def main():
-    
+    global translation
+    print(st.session_state['language_code'],'---')
+    translation=translations(st.session_state['language_code'])
     side_bar()
     theme_components()
     display_random_theme()
@@ -343,5 +344,14 @@ def main():
     lasting_letters()
     lower_side_bar()
 
+def default():
+    
+    if not 'language_code' in st.session_state: 
+        st.session_state['language_code']='US'
+    print(st.session_state['language_code'],'---')
+    global letters
+    letters=list(string.ascii_uppercase.replace('Y','').replace('W','').replace('K',''))
+    
 
+default()
 main()
