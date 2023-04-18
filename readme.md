@@ -24,20 +24,19 @@ To acess it follow the link:
 
 Game ON
 
-!['GameOn']('demo_imgs/gameon.png')
+![GameOn](demo_imgs/gameon.png)
 
 Image Theme
 
-!['imagetheme']('demo_imgs/imageTheme.png')
+![imagetheme](demo_imgs/imageTheme.png)
 
 Word Theme
 
-!['wrodtheme']('demo_imgs/wordTheme.png')
+![wrodtheme](demo_imgs/wordTheme.png)
 
 PT-BR Help Button
 
-!['help']('demo_imgs/br_help.png')
-
+![help](demo_imgs/BR_help.png)
 
 
 
