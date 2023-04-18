@@ -162,8 +162,12 @@ def start_game_button(pos=st,**kwargs):
 
 def reset_game_button(pos=st,**kwargs):
     button_name=translation.get_button_name('reset')
+<<<<<<< HEAD
     pos.button(button_name,on_click=reset_actions,**kwargs)
     
+=======
+    pos.button(button_name,on_click=clear_cache,**kwargs)
+>>>>>>> 928b92be1d70baaa57b588d10d0fee78a0d12f52
 
 def reset_actions():
     language=st.session_state['language_code']
