@@ -1,0 +1,3 @@
+{'BR':{'rules':'Uma palavra associada ao tema deve ser escolhida antes que o tempo acabe. Conforme as letras vão sumindo vai ficando mais difícil.'},
+'US':{'rules':"One should say a word related to the theme with the alphab    et letters that are avaible as fast as possible since the time is tiking. If the time is up when someone's turn, this person will lose. Everytime there is a time in the range seted is sorted randomly."}
+}

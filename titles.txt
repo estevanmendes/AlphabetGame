@@ -1,0 +1,18 @@
+{'BR':{'gameover':'Você perdeu! O tempo acabou na sua vez, seja mais rápido na Próxima',
+       'draw':'O jogo Empatou! Tudo ou nada na próxima rodada.',
+       'timer':'Escolha o intervalo de horário',
+       'gameon':'Valendo, o tempo está correndo',
+       'themeWarning':'Escolha um tema antes de iniciar.',
+       'language':'Idiomas',
+      'letters':'Letras disponíveis, Vamos lá',
+      'theme_word':'Tema'},
+ 'US':{'gameover':'You lost the game    ! There was not enough time',
+       'draw':"It is a draw, let's  double the bet on next round!",
+       'timer':'Set the game time',
+            'gameon':'Game on!',
+       'themeWarning':"Pick a theme before starting the game",
+       'language':'Languages',
+       'letters':"letters avaible, Let's go",
+      'theme_word':'Theme'}
+       
+}
