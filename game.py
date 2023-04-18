@@ -245,7 +245,7 @@ def theme_components():
     cols=st.columns(5)
     word_button_name=translation.get_button_name('themeWord')
     image_button_name=translation.get_button_name('themeImage')
-    cols[1].button(word_button_name,on_click=get_random_theme,kwargs={'themes':load_themes()})
+    cols[1].button(word_button_name,on_click=get_random_theme)
     cols[3].button(image_button_name,on_click=load_img_theme)
 
 
@@ -256,7 +256,7 @@ def load_img_theme():
     api_url = 'https://api.api-ninjas.com/v1/randomimage?category={}'.format(category)
     response = requests.get(api_url, headers={'X-Api-Key': key, 'Accept': 'image/jpg'}, stream=True)
     if response.status_code == requests.codes.ok:
-        with open('img.jpg', 'wb') as out_file:
+        with open('temp/img.jpg', 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
     else:
         print("Error:", response.status_code, response.text)
@@ -306,9 +306,14 @@ def game_rules():
     rules=translation.get_text('rules')
     st.sidebar.write(f'{rules}')
 
+def load_language_options():
+    with open('settings/language_options.txt','r') as f:
+        options=literal_eval(f.read())
+    return options
+
 @game_off_only
 def language_options():
-    options={'BR':'brasil.png','US':'usa.png'}
+    options=load_language_options()
     
 
     language_title()
