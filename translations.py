@@ -10,17 +10,17 @@ class translations:
 
 
     def load_titles(self):
-        with open('titles.txt','r') as f:
+        with open('settings/titles.txt','r') as f:
             titles_dict=literal_eval(f.read())
         return titles_dict
 
     def load_button_names(self):
-        with open('buttons.txt','r') as f:
+        with open('settings/buttons.txt','r') as f:
             button_names_dict=literal_eval(f.read())
         return button_names_dict
 
     def load_texts(self):
-        with open('texts.txt','r') as f:
+        with open('settings/texts.txt','r') as f:
             texts_dict=literal_eval(f.read())
         return texts_dict
 
