@@ -1,4 +1,4 @@
-## Gamge 
+## Game 
 
 In this game, people should say a word related to the theme fastly, since there is a limited time to it. Whent the time is over the one palying is the loser.
 The time and theme are randomly chosen.
