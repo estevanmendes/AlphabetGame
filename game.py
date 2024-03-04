@@ -256,7 +256,7 @@ def load_img_theme():
     api_url = 'https://api.api-ninjas.com/v1/randomimage?category={}'.format(category)
     response = requests.get(api_url, headers={'X-Api-Key': key, 'Accept': 'image/jpg'}, stream=True)
     if response.status_code == requests.codes.ok:
-        with open('temp/img.jpg', 'wb') as out_file:
+        with open('img.jpg', 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
     else:
         print("Error:", response.status_code, response.text)
@@ -264,7 +264,7 @@ def load_img_theme():
     st.session_state['theme']='img'
 
 def display_image_theme():
-    st.image('tmp/img.jpg')
+    st.image('img.jpg')
 
 
 def header():
