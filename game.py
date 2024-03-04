@@ -64,7 +64,7 @@ def load_random_theme():
         theme='Not Found'
     return theme
 
-def get_random_theme(themes):
+def get_random_theme(themes=None):
     theme=load_random_theme()
     st.session_state['theme']=theme
 
