@@ -264,7 +264,7 @@ def load_img_theme():
     st.session_state['theme']='img'
 
 def display_image_theme():
-    st.image('img.jpg')
+    st.image('tmp/img.jpg')
 
 
 def header():
